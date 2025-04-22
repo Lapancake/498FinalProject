@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+var host = "http://localhost:3000";
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -16,7 +17,7 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:5000/signup", formData);
+      const response = await axios.post(host+"/shop/adduser", formData);
       console.log(response);
       
       if (response.status === 200 || response.status === 201) { 
@@ -66,15 +67,6 @@ const Register = () => {
               />
             </div>
             <div>
-              <label className="block text-lg font-medium">Email</label>
-              <input
-                type="email"
-                name="email"
-                className="w-full p-3 border rounded-lg"
-                value={formData.email}
-                onChange={handleChange}
-                required
-              />
             </div>
             
             <button

@@ -1,9 +1,9 @@
-function SellPart (){
+function Admin (){
     return (
         <div className = "items-center min-h-screen mt-20">
-            Sell Parts
+            Admin Page
         </div>
     );
 }
 
-export default SellPart;
+export default Admin;

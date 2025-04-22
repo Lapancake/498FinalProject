@@ -5,7 +5,8 @@ import NavBar from "./Components/NavBar";
 import Browse from './Components/Browse';
 import Login from './Components/Login';
 import Register from './Components/Register';
-import Sell from './Components/SellPart';
+import SellPart from './Components/SellPart';
+import Admin from './Components/Admin';
 
 import './App.css';
 
@@ -19,7 +20,7 @@ function App() {
             <Route path="/" element={<Browse />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
-            <Route path="/administrative" element={<Admin />} />
+            {/* <Route path="/admin" element={<Admin />} /> */}
           </Routes>
         </div>
       </div>
