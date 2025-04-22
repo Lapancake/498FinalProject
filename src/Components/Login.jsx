@@ -87,7 +87,7 @@ const Login = () => {
       {/* Footer */}
       <footer className="bg-gray-800 text-white py-8">
         <div className="container mx-auto text-center">
-          <p>&copy; 2025 Collabmate. All rights reserved.</p>
+          <p>&copy; 2025 PC Parts Togo. All rights reserved.</p>
         </div>
       </footer>
     </div>
