@@ -8,7 +8,7 @@ const SellPart = () => {
     image: "",
   });
 
-  const userId = localStorage.getItem("userId"); // Assumes userId is stored locally
+  const userId = sessionStorage.getItem("userId"); 
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -19,9 +19,9 @@ const SellPart = () => {
     
     try {
       await axios.post("http://localhost:3000/shop2/sell", {
-        condition: selectedCondition,
-        type: selectedType,
-        image: imageUrl,
+        condition: form.condition,
+        type: form.type,
+        image: form.image,
         userId: userId,
       });
       alert("Listing submitted!");
