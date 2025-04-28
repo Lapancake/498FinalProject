@@ -24,9 +24,8 @@ const Login = () => {
       if (response.ok) {
         sessionStorage.setItem('logged', '1');
         sessionStorage.setItem('username', username);
-        sessionStorage.setItem('isAdmin', data.user.isadmin ? '1' : '0');
-        localStorage.setItem('userId', data.user.userid);
-
+        sessionStorage.setItem('isAdmin', data.user.isAdmin ? '1' : '0');
+        sessionStorage.setItem('userId', data.user.userid);
         navigate('/');
         window.location.reload();
       } else {
