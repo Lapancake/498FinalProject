@@ -8,6 +8,7 @@ const Register = () => {
     username: "",
     password: "",
     email: "",
+    balance: 1000,
   });
 
   const handleChange = (e) => {

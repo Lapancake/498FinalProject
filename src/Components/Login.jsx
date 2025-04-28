@@ -10,22 +10,23 @@ const Login = () => {
   const handleLogin = async (event) => {
     event.preventDefault();
     console.log("Attempting to log in with:", { username, password });
-  
+
     try {
-      const response = await fetch(host+'/shop/login', {
+      const response = await fetch(host + '/shop/login', {  // ✅ THIS MUST EXIST
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, password })
       });
-  
-      const data = await response.json();
-      console.log("Response data:", data);
-  
+
+      const data = await response.json(); // ✅ Get JSON
+      console.log("Login response data:", data);  // ✅ See exactly what server sends
+
       if (response.ok) {
         sessionStorage.setItem('logged', '1');
         sessionStorage.setItem('username', username);
-        sessionStorage.setItem('isAdmin', data.user.isAdmin ? '1' : '0');
-        sessionStorage.setItem('userId', data.user.userid);
+        sessionStorage.setItem('isAdmin', data.user.isadmin ? '1' : '0');
+        sessionStorage.setItem('userId', data.user.userid); // ✅ Use lowercase 'userid'
+
         navigate('/');
         window.location.reload();
       } else {
@@ -37,7 +38,6 @@ const Login = () => {
       alert('Server error. Please try again later.');
     }
   };
-  
 
   return (
     <div className="bg-gray-50 font-sans">
@@ -45,8 +45,7 @@ const Login = () => {
       <main className="py-24">
         <section className="container mx-auto bg-white p-8 rounded-lg shadow-lg max-w-md">
           <h2 className="text-4xl font-bold text-center mb-8">Login to Your Account</h2>
-         
-          {/* Updated form with onSubmit */}
+          
           <form className="space-y-6" onSubmit={handleLogin}>
             <div>
               <label htmlFor="username" className="block text-lg font-medium">Username</label>
