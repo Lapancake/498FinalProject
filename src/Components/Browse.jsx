@@ -5,7 +5,7 @@ const Browse = () => {
   const [listings, setListings] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const [balance, setBalance] = useState(0); // New: user balance
+  const [balance, setBalance] = useState(0); 
   const userId = sessionStorage.getItem("userId");
 
   useEffect(() => {
@@ -19,7 +19,7 @@ const Browse = () => {
         const otherListings = listingsRes.data.filter(listing => listing.userid !== Number(userId));
         setListings(otherListings);
     
-        setBalance(Number(balanceRes.data.balance)); // <-- FORCE it to be a number
+        setBalance(Number(balanceRes.data.balance)); 
       } catch (error) {
         console.error("Error fetching data:", error);
         setError("Failed to load listings or balance.");
@@ -46,7 +46,7 @@ const Browse = () => {
       });
 
       setListings(prev => prev.filter(listing => listing.listingid !== listingId));
-      setBalance(prev => prev - price); // Update balance in frontend too
+      setBalance(prev => prev - price); 
       alert("Purchase successful!");
     } catch (error) {
       console.error("Purchase failed:", error);

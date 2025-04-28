@@ -12,14 +12,14 @@ const Login = () => {
     console.log("Attempting to log in with:", { username, password });
 
     try {
-      const response = await fetch(host + '/shop/login', {  // ✅ THIS MUST EXIST
+      const response = await fetch(host + '/shop/login', {  
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, password })
       });
 
-      const data = await response.json(); // ✅ Get JSON
-      console.log("Login response data:", data);  // ✅ See exactly what server sends
+      const data = await response.json(); 
+      console.log("Login response data:", data);
 
       if (response.ok) {
         sessionStorage.setItem('logged', '1');

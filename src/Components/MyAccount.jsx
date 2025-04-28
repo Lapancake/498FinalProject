@@ -46,7 +46,7 @@ const MyAccount = () => {
     try {
       await axios.delete(`http://localhost:3000/shop/deletelisting?id=${listingId}`);
 
-      // Update local state: remove the deleted listing
+      
       setUserData(prevData => {
         const updatedListings = prevData.listings.filter(listing => listing.listingid !== listingId);
         return {
@@ -55,7 +55,7 @@ const MyAccount = () => {
         };
       });
 
-      setCurrentIndex(0); // Reset to first listing
+      setCurrentIndex(0); 
 
       alert("Listing deleted successfully.");
     } catch (error) {

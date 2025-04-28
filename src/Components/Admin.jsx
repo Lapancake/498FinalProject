@@ -6,7 +6,7 @@ function Admin() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  const isAdmin = sessionStorage.getItem("isAdmin") === "1";  // ✅ Correct way to check now
+  const isAdmin = sessionStorage.getItem("isAdmin") === "1";  
 
   useEffect(() => {
     const fetchListings = async () => {
