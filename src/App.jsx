@@ -23,7 +23,7 @@ function App() {
             <Route path="/sellPart" element={<SellPart />} />
             <Route path="/my-account" element={<MyAccount />} />
             <Route path="/register" element={<Register />} />
-            {/* <Route path="/admin" element={<Admin />} /> */}
+            <Route path="/admin" element={<Admin />} />
           </Routes>
         </div>
       </div>

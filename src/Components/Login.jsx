@@ -25,7 +25,7 @@ const Login = () => {
         sessionStorage.setItem('logged', '1');
         sessionStorage.setItem('username', username);
         sessionStorage.setItem('isAdmin', data.user.isadmin ? '1' : '0');
-        sessionStorage.setItem('userId', data.user.userid); // ✅ Use lowercase 'userid'
+        sessionStorage.setItem('userId', data.user.userid); 
 
         navigate('/');
         window.location.reload();
