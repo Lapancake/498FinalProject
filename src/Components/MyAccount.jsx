@@ -5,7 +5,7 @@ const MyAccount = () => {
   const [userData, setUserData] = useState({ username: "", balance: 0, listings: [] });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const [currentIndex, setCurrentIndex] = useState(0); // 👈 For tracking which listing to show
+  const [currentIndex, setCurrentIndex] = useState(0);
   const userId = sessionStorage.getItem("userId");
 
   useEffect(() => {
@@ -61,7 +61,6 @@ const MyAccount = () => {
 
   return (
     <div className="p-6 space-y-8">
-      {/* Top Bar with Username and Balance */}
       <div className="flex flex-col md:flex-row justify-between items-center bg-blue-600 text-white p-6 rounded-md shadow">
         <h2 className="text-2xl font-bold mb-2 md:mb-0">Hello, {userData.username}</h2>
         <div className="text-xl">
@@ -69,7 +68,6 @@ const MyAccount = () => {
         </div>
       </div>
 
-      {/* Listings Section */}
       <div>
         <h3 className="text-2xl font-semibold mb-4">Listings Overview</h3>
         {userData.listings.length > 0 ? (
@@ -91,7 +89,6 @@ const MyAccount = () => {
             <p><strong>Condition:</strong> {currentListing.condition}</p>
             <p><strong>Price:</strong> ${Number(currentListing.price).toFixed(2)}</p>
 
-            {/* Navigation Buttons */}
             <div className="mt-4 flex justify-center space-x-4">
               <button
                 onClick={handlePrev}
