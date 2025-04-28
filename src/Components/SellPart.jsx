@@ -40,7 +40,7 @@ const SellPart = () => {
       }
     }
   };
-  
+  //jjjj
 
   return (
     <div className="p-6">
