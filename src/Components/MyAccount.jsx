@@ -5,6 +5,7 @@ const MyAccount = () => {
   const [userData, setUserData] = useState({ username: "", balance: 0, listings: [] });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [currentIndex, setCurrentIndex] = useState(0); // 👈 For tracking which listing to show
   const userId = sessionStorage.getItem("userId");
 
   useEffect(() => {
@@ -18,7 +19,7 @@ const MyAccount = () => {
 
       try {
         const res = await axios.get(`http://localhost:3000/shop/userdashboard?id=${userId}`);
-        console.log("Fetched account data:", res.data); // 🔵 Good for checking
+        console.log("Fetched account data:", res.data);
         setUserData(res.data);
       } catch (error) {
         console.error("Error fetching account data:", error);
@@ -30,6 +31,14 @@ const MyAccount = () => {
 
     fetchAccountData();
   }, [userId]);
+
+  const handleNext = () => {
+    setCurrentIndex((prev) => (prev + 1) % userData.listings.length);
+  };
+
+  const handlePrev = () => {
+    setCurrentIndex((prev) => (prev - 1 + userData.listings.length) % userData.listings.length);
+  };
 
   if (loading) {
     return (
@@ -47,34 +56,61 @@ const MyAccount = () => {
       </div>
     );
   }
-//jlkfjakljf;lsj
-  return (
-    <div className="p-6">
-      <h2 className="text-2xl font-bold mb-4">My Account</h2>
-      <p><strong>Username:</strong> {userData.username}</p>
-      <p><strong>Balance:</strong> ${Number(userData.balance).toFixed(2)}</p> {/* ✅ SAFELY CONVERT to Number */}
 
-      <h3 className="text-xl mt-6 mb-2">Your Listings</h3>
-      <ul className="space-y-2">
+  const currentListing = userData.listings[currentIndex];
+
+  return (
+    <div className="p-6 space-y-8">
+      {/* Top Bar with Username and Balance */}
+      <div className="flex flex-col md:flex-row justify-between items-center bg-blue-600 text-white p-6 rounded-md shadow">
+        <h2 className="text-2xl font-bold mb-2 md:mb-0">Hello, {userData.username}</h2>
+        <div className="text-xl">
+          <span className="font-semibold">Balance:</span> ${Number(userData.balance).toFixed(2)}
+        </div>
+      </div>
+
+      {/* Listings Section */}
+      <div>
+        <h3 className="text-2xl font-semibold mb-4">Listings Overview</h3>
         {userData.listings.length > 0 ? (
-          userData.listings.map((listing, index) => (
-            <li key={index} className="border p-3 rounded">
-              <p><strong>Type:</strong> {listing.type}</p>
-              <p><strong>Condition:</strong> {listing.condition}</p>
-              <p><strong>Price:</strong> ${Number(listing.price).toFixed(2)}</p>
-              {listing.image && (
-                <img
-                  src={listing.image}
-                  alt="Listing"
-                  className="w-32 mt-2"
-                />
-              )}
-            </li>
-          ))
+          <div className="border p-4 rounded-md shadow-sm text-center">
+            {currentListing.image && (
+              <img
+                src={currentListing.image}
+                alt="Listing"
+                style={{
+                  width: "100%",
+                  height: "200px",
+                  objectFit: "cover",
+                  borderRadius: "8px",
+                  marginBottom: "16px"
+                }}
+              />
+            )}
+            <p><strong>Type:</strong> {currentListing.type}</p>
+            <p><strong>Condition:</strong> {currentListing.condition}</p>
+            <p><strong>Price:</strong> ${Number(currentListing.price).toFixed(2)}</p>
+
+            {/* Navigation Buttons */}
+            <div className="mt-4 flex justify-center space-x-4">
+              <button
+                onClick={handlePrev}
+                className="bg-gray-300 hover:bg-gray-400 text-black font-semibold py-2 px-4 rounded"
+              >
+                Previous
+              </button>
+              <button
+                onClick={handleNext}
+                className="bg-gray-300 hover:bg-gray-400 text-black font-semibold py-2 px-4 rounded"
+              >
+                Next
+              </button>
+            </div>
+          </div>
         ) : (
-          <p>No listings found.</p>
+          <p>No listings available.</p>
         )}
-      </ul>
+      </div>
     </div>
   );
 };
