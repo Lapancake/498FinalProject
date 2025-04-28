@@ -6,7 +6,7 @@ function Admin() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  const isAdmin = sessionStorage.getItem("isAdmin") === "1";  
+  const isAdmin = sessionStorage.getItem("isAdmin") === "1";
 
   useEffect(() => {
     const fetchListings = async () => {
@@ -69,22 +69,36 @@ function Admin() {
     <div className="p-6 mt-20">
       <h2 className="text-3xl font-bold text-center mb-8">Admin: Manage Listings</h2>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {listings.map((listing) => (
-          <div key={listing.listingid} className="border p-4 rounded shadow flex flex-col">
-            <p><strong>Type:</strong> {listing.type}</p>
-            <p><strong>Condition:</strong> {listing.condition}</p>
-            <p><strong>Price:</strong> ${Number(listing.price).toFixed(2)}</p>
-            <p><strong>Listing ID:</strong> {listing.listingid}</p>
-
-            <button
-              className="mt-4 bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded"
-              onClick={() => handleDelete(listing.listingid)}
-            >
-              Delete Listing
-            </button>
-          </div>
-        ))}
+      <div className="overflow-x-auto">
+        <table className="min-w-full bg-white border border-gray-300">
+          <thead>
+            <tr className="bg-gray-200 text-gray-700">
+              <th className="py-3 px-6 text-left">Type</th>
+              <th className="py-3 px-6 text-left">Condition</th>
+              <th className="py-3 px-6 text-left">Price</th>
+              <th className="py-3 px-6 text-left">Listing ID</th>
+              <th className="py-3 px-6 text-left">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {listings.map((listing) => (
+              <tr key={listing.listingid} className="border-t hover:bg-gray-50">
+                <td className="py-3 px-6">{listing.type}</td>
+                <td className="py-3 px-6">{listing.condition}</td>
+                <td className="py-3 px-6">${Number(listing.price).toFixed(2)}</td>
+                <td className="py-3 px-6">{listing.listingid}</td>
+                <td className="py-3 px-6">
+                  <button
+                    onClick={() => handleDelete(listing.listingid)}
+                    className="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded"
+                  >
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     </div>
   );
