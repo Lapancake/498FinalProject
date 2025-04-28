@@ -40,6 +40,30 @@ const MyAccount = () => {
     setCurrentIndex((prev) => (prev - 1 + userData.listings.length) % userData.listings.length);
   };
 
+  const handleDelete = async (listingId) => {
+    if (!window.confirm("Are you sure you want to delete this listing?")) return;
+
+    try {
+      await axios.delete(`http://localhost:3000/shop/deletelisting?id=${listingId}`);
+
+      // Update local state: remove the deleted listing
+      setUserData(prevData => {
+        const updatedListings = prevData.listings.filter(listing => listing.listingid !== listingId);
+        return {
+          ...prevData,
+          listings: updatedListings,
+        };
+      });
+
+      setCurrentIndex(0); // Reset to first listing
+
+      alert("Listing deleted successfully.");
+    } catch (error) {
+      console.error("Error deleting listing:", error);
+      alert("Failed to delete listing.");
+    }
+  };
+
   if (loading) {
     return (
       <div className="p-6">
@@ -72,7 +96,7 @@ const MyAccount = () => {
         <h3 className="text-2xl font-semibold mb-4">Listings Overview</h3>
         {userData.listings.length > 0 ? (
           <div className="border p-4 rounded-md shadow-sm text-center">
-            {currentListing.image && (
+            {currentListing?.image && (
               <img
                 src={currentListing.image}
                 alt="Listing"
@@ -85,11 +109,11 @@ const MyAccount = () => {
                 }}
               />
             )}
-            <p><strong>Type:</strong> {currentListing.type}</p>
-            <p><strong>Condition:</strong> {currentListing.condition}</p>
-            <p><strong>Price:</strong> ${Number(currentListing.price).toFixed(2)}</p>
+            <p><strong>Type:</strong> {currentListing?.type}</p>
+            <p><strong>Condition:</strong> {currentListing?.condition}</p>
+            <p><strong>Price:</strong> ${Number(currentListing?.price).toFixed(2)}</p>
 
-            <div className="mt-4 flex justify-center space-x-4">
+            <div className="mt-4 flex flex-wrap justify-center space-x-4 space-y-4">
               <button
                 onClick={handlePrev}
                 className="bg-gray-300 hover:bg-gray-400 text-black font-semibold py-2 px-4 rounded"
@@ -102,10 +126,16 @@ const MyAccount = () => {
               >
                 Next
               </button>
+              <button
+                onClick={() => handleDelete(currentListing.listingid)}
+                className="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded"
+              >
+                Delete Listing
+              </button>
             </div>
           </div>
         ) : (
-          <p>No listings available.</p>
+          <p className="text-center text-lg text-gray-600">You have no listings.</p>
         )}
       </div>
     </div>
