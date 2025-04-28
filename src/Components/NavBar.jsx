@@ -17,7 +17,6 @@ function Navbar() {
     <nav style={navStyle}>
       <div style={linkContainerStyle}>
         <Link to="/" style={linkStyle}>Home</Link>
-        <Link to="/about" style={linkStyle}>About</Link>
 
         {isLoggedIn && (
           <>

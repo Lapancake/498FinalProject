@@ -7,6 +7,7 @@ import Login from './Components/Login';
 import Register from './Components/Register';
 import SellPart from './Components/SellPart';
 import Admin from './Components/Admin';
+import MyAccount from "./Components/MyAccount";
 
 import './App.css';
 
@@ -20,6 +21,7 @@ function App() {
             <Route path="/" element={<Browse />} />
             <Route path="/login" element={<Login />} />
             <Route path="/sellPart" element={<SellPart />} />
+            <Route path="/my-account" element={<MyAccount />} />
             <Route path="/register" element={<Register />} />
             {/* <Route path="/admin" element={<Admin />} /> */}
           </Routes>
