@@ -47,7 +47,7 @@ const MyAccount = () => {
       </div>
     );
   }
-//jlkfjakljf;lsj
+
   return (
     <div className="p-6">
       <h2 className="text-2xl font-bold mb-4">My Account</h2>
@@ -66,7 +66,8 @@ const MyAccount = () => {
                 <img
                   src={listing.image}
                   alt="Listing"
-                  className="w-32 mt-2"
+                  style={{ width: "200px", height: "150px", objectFit: "cover" }} // Inline style for image size
+                  className="mt-2"
                 />
               )}
             </li>
