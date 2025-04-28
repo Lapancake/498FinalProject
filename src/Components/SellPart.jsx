@@ -6,10 +6,9 @@ const SellPart = () => {
     condition: "",
     type: "",
     image: "",
-    price: "",
   });
 
-  const userId = sessionStorage.getItem("userId");
+  const userId = sessionStorage.getItem("userId"); 
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -17,36 +16,26 @@ const SellPart = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
     try {
-      await axios.post("http://localhost:3000/shop/sell", {
+      await axios.post("http://localhost:3000/shop2/sell", {
         condition: form.condition,
         type: form.type,
         image: form.image,
-        price: parseFloat(form.price),
         userId: userId,
       });
       alert("Listing submitted!");
-      setForm({ condition: "", type: "", image: "", price: "" });
+      setForm({ condition: "", type: "", image: "" });
     } catch (error) {
-      if (error.response) {
-        console.error("Server responded with an error:", error.response.data);
-        alert(`Server error: ${error.response.data.error || "Unknown server error."}`);
-      } else if (error.request) {
-        console.error("No response received:", error.request);
-        alert("No response from server.");
-      } else {
-        console.error("Error setting up request:", error.message);
-        alert("Error setting up request.");
-      }
+      console.error("Error submitting listing:", error);
+      alert("Submission failed.");
     }
   };
-  //jjjj
 
   return (
     <div className="p-6">
       <h2 className="text-2xl font-bold mb-4">Sell a Part</h2>
       <form onSubmit={handleSubmit} className="flex flex-col gap-3 max-w-md">
-
         <select
           name="condition"
           value={form.condition}
@@ -74,17 +63,6 @@ const SellPart = () => {
           <option value="RAM">RAM</option>
           <option value="Hard Drive">Hard Drive</option>
         </select>
-
-        <input
-          name="price"
-          type="number"
-          step="0.01"
-          placeholder="Price in USD"
-          value={form.price}
-          onChange={handleChange}
-          className="p-2 border"
-          required
-        />
 
         <input
           name="image"

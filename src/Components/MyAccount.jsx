@@ -18,7 +18,7 @@ const MyAccount = () => {
 
       try {
         const res = await axios.get(`http://localhost:3000/shop/userdashboard?id=${userId}`);
-        console.log("Fetched account data:", res.data); // 🔵 Good for checking
+        console.log("Fetched account data:", res.data);
         setUserData(res.data);
       } catch (error) {
         console.error("Error fetching account data:", error);
@@ -47,32 +47,36 @@ const MyAccount = () => {
       </div>
     );
   }
-//jlkfjakljf;lsj
-  return (
-    <div className="p-6">
-      <h2 className="text-2xl font-bold mb-4">My Account</h2>
-      <p><strong>Username:</strong> {userData.username}</p>
-      <p><strong>Balance:</strong> ${Number(userData.balance).toFixed(2)}</p> {/* ✅ SAFELY CONVERT to Number */}
 
-      <h3 className="text-xl mt-6 mb-2">Your Listings</h3>
-      <ul className="space-y-2">
+  return (
+    <div className="p-6 max-w-4xl mx-auto">
+      <h2 className="text-3xl font-bold mb-6 text-center">My Account</h2>
+      <div className="mb-6 text-center">
+        <p><strong>Username:</strong> {userData.username}</p>
+        <p><strong>Balance:</strong> ${Number(userData.balance).toFixed(2)}</p>
+      </div>
+
+      <h3 className="text-2xl font-semibold mb-4">Your Listings</h3>
+      <ul className="space-y-6">
         {userData.listings.length > 0 ? (
           userData.listings.map((listing, index) => (
-            <li key={index} className="border p-3 rounded">
-              <p><strong>Type:</strong> {listing.type}</p>
-              <p><strong>Condition:</strong> {listing.condition}</p>
-              <p><strong>Price:</strong> ${Number(listing.price).toFixed(2)}</p>
+            <li key={index} className="border rounded-lg p-4 flex items-center gap-6 shadow-md">
               {listing.image && (
                 <img
                   src={listing.image}
                   alt="Listing"
-                  className="w-32 mt-2"
+                  className="w-32 h-32 object-cover rounded-md flex-shrink-0"
                 />
               )}
+              <div className="text-left">
+                <p><strong>Type:</strong> {listing.type}</p>
+                <p><strong>Condition:</strong> {listing.condition}</p>
+                <p><strong>Price:</strong> ${Number(listing.price).toFixed(2)}</p>
+              </div>
             </li>
           ))
         ) : (
-          <p>No listings found.</p>
+          <p className="text-center">No listings found.</p>
         )}
       </ul>
     </div>
